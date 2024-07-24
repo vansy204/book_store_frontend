@@ -1,29 +1,30 @@
 /* eslint-disable @typescript-eslint/no-redeclare */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { Book } from "../../../models/Book";
-
-interface BookProps{
-    book: Book
+import { BookModel } from "../../../models/BookModel";
+interface BookPropsInterface{
+    Book: BookModel;
 }
-const BookProps: React.FC<BookProps> = ({book}) =>{
+
+const BookProps: React.FC<BookPropsInterface> = (props) =>{
     return(
         <div className="col-md-3 mt-2" >
             <div className="card">
                 <img 
-                    src={book.imageUrl}
-                    alt={book.title}
+                    src={""}
+                    className="card-img-top"
+                    alt={props.Book.bookName}
                     style={{height:'200px'}}
                 />
                 <div className="card-body">
-                    <h5 className="card-title">{book.title}</h5>
-                    <p className="card-text">{book.desciption}</p>
+                    <h5 className="card-title">{props.Book.bookName}</h5>
+                    <p className="card-text">{props.Book.desciption}</p>
                     <div className="price">
                         <span className="original-price">
-                            <del>{book.originalPrice}</del>
+                            <del>{props.Book.listedPrice}</del>
                         </span>
                         <span className="price">
-                            <strong>{book.price}</strong>
+                            <strong>{props.Book.price}</strong>
                         </span>
                     </div>
                     <div className="row mt-2" role="group">
