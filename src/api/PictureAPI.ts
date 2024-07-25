@@ -2,10 +2,10 @@ import React from "react";
 import { PictureModel } from "../models/PictureModel";
 import { my_request } from "./Request";
 
-export async function getAllPicture(bookId: number): Promise<PictureModel[]> {
+
+export async function getPictureofBook(endpoint: string): Promise<PictureModel[]> {
     const result: PictureModel[] = [];
-    // xac dinh endpoint
-    const endpoint: string = `http://localhost:8080/book/${bookId}/pictures`;
+    
 
     // goi request
     const response = await my_request(endpoint);
@@ -22,3 +22,15 @@ export async function getAllPicture(bookId: number): Promise<PictureModel[]> {
     }
     return result;
 }
+
+export async function getAllPicture(bookId: number): Promise<PictureModel[]> {
+   // xac dinh endpoint
+   const endpoint: string = `http://localhost:8080/book/${bookId}/pictures`;
+   return getPictureofBook(endpoint);
+}
+export async function getFirtPictureOfBook(bookId: number): Promise<PictureModel[]> {
+    // xac dinh endpoint
+    const endpoint: string = `http://localhost:8080/book/${bookId}/pictures?sort=pictureId,asc&page=0&size=1`;
+    return getPictureofBook(endpoint);
+ }
+

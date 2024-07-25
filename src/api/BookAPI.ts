@@ -6,10 +6,8 @@ import { my_request } from "./Request";
 
 
 
-export async function getAllBook(): Promise<BookModel[]> {
+async function getBook(endpoint: string): Promise<BookModel[]>{
     const result: BookModel[] = [];
-    // xac dinh endpoint
-    const endpoint: string = 'http://localhost:8080/book';
     
     // goi request
     const response = await my_request(endpoint);
@@ -29,4 +27,16 @@ export async function getAllBook(): Promise<BookModel[]> {
         })
     }
     return result;
+}
+
+export async function getAllBook(): Promise<BookModel[]> {
+    // xac dinh endpoint
+    const endpoint: string = 'http://localhost:8080/book?sort=bookId,desc';
+    return getBook(endpoint);
+}
+
+export async function get3NewBook(): Promise<BookModel[]> {
+    // xac dinh endpoint
+    const endpoint: string = 'http://localhost:8080/book?sort=bookId,desc&page=0&size=3';
+    return getBook(endpoint);
 }
