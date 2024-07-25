@@ -1,19 +1,10 @@
 
 import React from "react";
 import { BookModel } from "../models/BookModel";
-import { log } from "console";
+import { my_request } from "./Request";
 
 
-async function request(enpoint: string) {
-    // truy van den duong dan
-    const response = await fetch(enpoint);
-    // neu co loi
-    if(!response.ok){
-        throw new Error(`can not access ${enpoint}`)
-    }
-    // neu khong loi
-    return response.json();
-}
+
 
 export async function getAllBook(): Promise<BookModel[]> {
     const result: BookModel[] = [];
@@ -21,7 +12,7 @@ export async function getAllBook(): Promise<BookModel[]> {
     const endpoint: string = 'http://localhost:8080/book';
     
     // goi request
-    const response = await request(endpoint);
+    const response = await my_request(endpoint);
     // lay ra json book
     const responseData = response._embedded.books;
     for(const key in responseData){

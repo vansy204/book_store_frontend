@@ -1,21 +1,59 @@
 /* eslint-disable @typescript-eslint/no-redeclare */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BookModel } from "../../../models/BookModel";
+import { getAllPicture } from "../../../api/PictureAPI";
+import { PictureModel } from "../../../models/PictureModel";
+import { log } from "console";
 interface BookPropsInterface{
     Book: BookModel;
 }
 
 const BookProps: React.FC<BookPropsInterface> = (props) =>{
+    const bookId: number = props.Book.bookId;
+    const [listPicture,setListPicture] = useState<PictureModel[]>([]);
+    const [loadingData,setLoadingData] = useState(true);
+    const [errorRes,setError] = useState(null);
+
+    useEffect(() =>{
+        getAllPicture(bookId).then(
+            pictureData => {
+                setListPicture(pictureData);
+                setLoadingData(false);
+            }
+        ).catch(
+            error =>{
+                setError(error.message);
+            }
+        );
+    },[]) // chi goi 1 lan
+    if(loadingData){
+        return(
+            <div>
+                <h1>Loadding Data</h1>
+            </div>
+        );
+    }
+    if(errorRes){
+        return(
+            <div>
+                <h1>Error: {errorRes}</h1>
+            </div>
+        );
+    }
+    let pictureData: string ="";
+    if(listPicture[0] && listPicture[0].pictureData){
+        pictureData = listPicture[0].pictureData;
+    }
     return(
         <div className="col-md-3 mt-2" >
             <div className="card">
-                <img 
-                    src={""}
-                    className="card-img-top"
-                    alt={props.Book.bookName}
-                    style={{height:'200px'}}
-                />
+            <img 
+                src={pictureData}
+                className="card-img-top"
+                alt={props.Book.bookName}
+                style={{height:'200px'}}
+            />
                 <div className="card-body">
                     <h5 className="card-title">{props.Book.bookName}</h5>
                     <p className="card-text">{props.Book.desciption}</p>
