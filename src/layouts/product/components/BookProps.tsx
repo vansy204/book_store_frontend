@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { BookModel } from "../../../models/BookModel";
 import { getAllPicture } from "../../../api/PictureAPI";
 import { PictureModel } from "../../../models/PictureModel";
-import { log } from "console";
 interface BookPropsInterface{
     Book: BookModel;
 }
