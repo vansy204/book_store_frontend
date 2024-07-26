@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import React from "react";
 import { BookModel } from "../models/BookModel";
@@ -49,4 +50,12 @@ export async function get3NewBook(): Promise<resultInterface> {
     const endpoint: string = 'http://localhost:8080/book?sort=bookId,desc&page=0&size=3';
     return getBook(endpoint);
 }
+//http://localhost:8080/book/search/findByBookNameContaining?bookName=tam%20ly
 
+export async function searchBook(searchKey: string): Promise<resultInterface> {
+    let endpoint: string = `http://localhost:8080/book?sort=bookId,desc&size=8&page=0`;
+    if(searchKey !== ""){
+        endpoint = `http://localhost:8080/book/search/findByBookNameContaining?sort=bookId,desc&size=8&page=0&bookName=${searchKey}`;
+    }
+    return getBook(endpoint);
+}

@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @typescript-eslint/no-redeclare */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import { BookModel } from "../../../models/BookModel";
-import { getAllPicture, getFirtPictureOfBook } from "../../../api/PictureAPI";
+import { getFirtPictureOfBook } from "../../../api/PictureAPI";
 import { PictureModel } from "../../../models/PictureModel";
 interface CarouselItemInterface {
     Book: BookModel;

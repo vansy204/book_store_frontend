@@ -3,12 +3,16 @@ import { Banner } from "./components/Banner";
 import Carousel from "./components/Carousel";
 import List from "../product/List";
 
-export function HomePage(){
+
+interface HomePageProps{
+    searchKey: string;
+}
+export function HomePage({searchKey}: HomePageProps){
     return(
         <div>
             <Banner/>
             <Carousel/>
-            <List />
+            <List searchKey={searchKey} />
         </div>
     );
 }
