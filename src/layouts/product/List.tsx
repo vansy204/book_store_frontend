@@ -2,17 +2,21 @@ import React, { useEffect, useState } from "react";
 import { BookModel } from "../../models/BookModel";
 import BookProps from "./components/BookProps";
 import { getAllBook } from "../../api/BookAPI";
+import { Pagination } from "../utils/Pagination";
 
 
 const List: React.FC = () => {
     const [listBook,setListBook] = useState<BookModel[]>([]);
     const [loadingData,setLoadingData] = useState(true);
     const [errorRes,setError] = useState(null);
-
+    const [currentPage,setCurrentPage] = useState(1);
+    const [totalpages,setTotalPages] = useState(0);
+    const [totalElements,setTotalElements] = useState(0);
     useEffect(() =>{
-        getAllBook().then(
-            bookData => {
-                setListBook(bookData);
+        getAllBook(currentPage -1).then(
+            result => {
+                setListBook(result.result);
+                setTotalElements(result.totalElement);
                 setLoadingData(false);
             }
         ).catch(
@@ -20,7 +24,11 @@ const List: React.FC = () => {
                 setError(error.message);
             }
         );
-    },[]) // chi goi 1 lan
+    },[currentPage]) // chi goi 1 lan
+    //phan trang
+    const pagination = (page: number) => setCurrentPage(page);
+            // phan trang
+    
     if(loadingData){
         return(
             <div>
@@ -38,13 +46,14 @@ const List: React.FC = () => {
     return (
         
         <div className="container">
-            <div className="row mt-4">
+            <div className="row mt-4 mb-4">
                 {
                     listBook.map((book)=>(
                         <BookProps key={book.bookId} Book={book}/>
                     ))
                 }
             </div>
+            <Pagination currentpage={currentPage} totalpages={totalElements} pagination={pagination}/>
         </div>
     );
 }

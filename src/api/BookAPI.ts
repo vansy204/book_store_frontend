@@ -3,16 +3,25 @@ import React from "react";
 import { BookModel } from "../models/BookModel";
 import { my_request } from "./Request";
 
+interface resultInterface{
+    result:  BookModel[];
+    totalPages: number;
+    totalElement: number;
+}
 
 
-
-async function getBook(endpoint: string): Promise<BookModel[]>{
+async function getBook(endpoint: string): Promise<resultInterface>{
     const result: BookModel[] = [];
     
     // goi request
     const response = await my_request(endpoint);
     // lay ra json book
     const responseData = response._embedded.books;
+
+    // lay thong tin trang
+    const totalPages : number = response.page.totalPages;
+    const totalElements : number = response.page.totalElements;
+
     for(const key in responseData){
         result.push({
             bookId: responseData[key].bookId,
@@ -26,17 +35,18 @@ async function getBook(endpoint: string): Promise<BookModel[]>{
             ratings: responseData[key].ratings,
         })
     }
-    return result;
+    return {result: result, totalPages: totalPages, totalElement: totalElements};
 }
 
-export async function getAllBook(): Promise<BookModel[]> {
+export async function getAllBook(currentPage: number): Promise<resultInterface> {
     // xac dinh endpoint
-    const endpoint: string = 'http://localhost:8080/book?sort=bookId,desc';
+    const endpoint: string = `http://localhost:8080/book?sort=bookId,desc&size=8&page=${currentPage}`;
     return getBook(endpoint);
 }
 
-export async function get3NewBook(): Promise<BookModel[]> {
+export async function get3NewBook(): Promise<resultInterface> {
     // xac dinh endpoint
     const endpoint: string = 'http://localhost:8080/book?sort=bookId,desc&page=0&size=3';
     return getBook(endpoint);
 }
+
