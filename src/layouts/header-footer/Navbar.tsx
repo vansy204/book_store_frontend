@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { ChangeEvent, useState, KeyboardEvent } from "react";
+import { Link } from "react-router-dom";
 
 interface NavbarProps {
     searchKey: string;
@@ -40,9 +41,9 @@ export function Navbar({ searchKey, setSearchKey }: NavbarProps) {
                                 Category
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown1">
-                                <li><a className="dropdown-item" href="#">Category 1</a></li>
-                                <li><a className="dropdown-item" href="#">Category 2</a></li>
-                                <li><a className="dropdown-item" href="#">Category 3</a></li>
+                                <li><Link className="dropdown-item" to="/1">Category 1</Link></li>
+                                <li><Link className="dropdown-item" to="/2">Category 2</Link></li>
+                                <li><Link className="dropdown-item" to="/3">Category 3</Link></li>
                             </ul>
                         </li>
                         <li className="nav-item dropdown">

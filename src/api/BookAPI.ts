@@ -52,10 +52,14 @@ export async function get3NewBook(): Promise<resultInterface> {
 }
 //http://localhost:8080/book/search/findByBookNameContaining?bookName=tam%20ly
 
-export async function searchBook(searchKey: string): Promise<resultInterface> {
+export async function searchBook(searchKey: string, categoryId: number): Promise<resultInterface> {
     let endpoint: string = `http://localhost:8080/book?sort=bookId,desc&size=8&page=0`;
-    if(searchKey !== ""){
+    if(searchKey !== "" && categoryId ==0){
         endpoint = `http://localhost:8080/book/search/findByBookNameContaining?sort=bookId,desc&size=8&page=0&bookName=${searchKey}`;
+    }else if(searchKey === "" && categoryId > 0){
+        endpoint = `http://localhost:8080/book/search/findByCategories_categoryId?sort=bookId,desc&size=8&&page=0&categoryId=${categoryId}`
+    }else if(searchKey !== "" && categoryId > 0){
+        endpoint = `http://localhost:8080/book/search/findByBookNameContainingAndCategories_categoryId?sort=bookId,desc&size=8&&page=0&categoryId=${categoryId}&bookName=${searchKey}`
     }
     return getBook(endpoint);
 }

@@ -6,17 +6,18 @@ import { Pagination } from "../utils/Pagination";
 
 
 interface ListProps{
-    searchKey: string
+    searchKey: string;
+    categoryId: number;
 }
-function List({searchKey}: ListProps) {
+function List({searchKey, categoryId}: ListProps) {
     const [listBook,setListBook] = useState<BookModel[]>([]);
     const [loadingData,setLoadingData] = useState(true);
     const [errorRes,setError] = useState(null);
     const [currentPage,setCurrentPage] = useState(1);
-
     const [totalElements,setTotalElements] = useState(0);
+
     useEffect(() =>{
-        if(searchKey ===''){
+        if(searchKey ==='' && categoryId == 0){
             getAllBook(currentPage -1).then(
                 result => {
                     setListBook(result.result);
@@ -29,7 +30,7 @@ function List({searchKey}: ListProps) {
                 }
             );
         }else{
-            searchBook(searchKey).then(
+            searchBook(searchKey,categoryId).then(
                 result => {
                     setListBook(result.result);
                     setTotalElements(result.totalElement);
@@ -42,7 +43,7 @@ function List({searchKey}: ListProps) {
             );
         }
         
-    },[currentPage,searchKey]) // chi goi 1 lan
+    },[currentPage,searchKey,categoryId]) // chi goi 1 lan
     //phan trang
     const pagination = (page: number) => setCurrentPage(page);
             // phan trang
