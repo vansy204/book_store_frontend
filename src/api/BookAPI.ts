@@ -36,7 +36,7 @@ async function getBook(endpoint: string): Promise<resultInterface>{
             ratings: responseData[key].ratings,
         })
     }
-    return {result: result, totalPages: totalPages, totalElement: totalElements};
+    return {result: result, totalElement: totalElements,totalPages: totalPages};
 }
 
 export async function getAllBook(currentPage: number): Promise<resultInterface> {
@@ -54,7 +54,7 @@ export async function get3NewBook(): Promise<resultInterface> {
 
 export async function searchBook(searchKey: string, categoryId: number): Promise<resultInterface> {
     let endpoint: string = `http://localhost:8080/book?sort=bookId,desc&size=8&page=0`;
-    if(searchKey !== "" && categoryId ==0){
+    if(searchKey !== "" && categoryId ===0){
         endpoint = `http://localhost:8080/book/search/findByBookNameContaining?sort=bookId,desc&size=8&page=0&bookName=${searchKey}`;
     }else if(searchKey === "" && categoryId > 0){
         endpoint = `http://localhost:8080/book/search/findByCategories_categoryId?sort=bookId,desc&size=8&&page=0&categoryId=${categoryId}`

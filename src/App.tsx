@@ -18,7 +18,7 @@ function App() {
         <Routes>
          <Route path='/' element={<HomePage searchKey={searchKey} />}/>
          <Route path='/:categoryId' element={<HomePage searchKey={searchKey} />}/>
-         <Route path='about' element={<About/>}/>
+         <Route path='/about' element={<About/>}/>
         </Routes>
         <Footer />
       </BrowserRouter>

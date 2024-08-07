@@ -3,7 +3,7 @@ import { Banner } from "./components/Banner";
 import Carousel from "./components/Carousel";
 import List from "../product/List";
 import { useParams } from "react-router-dom";
-import { error } from "console";
+
 
 
 interface HomePageProps{
@@ -15,8 +15,9 @@ export function HomePage({searchKey}: HomePageProps){
     let categoryIdNumber = 0;
     try{
         categoryIdNumber = parseInt(categoryId+"")
-    }catch{
+    }catch(error){
         categoryIdNumber = 0;
+        console.error("Error:" , error);
     }
     if(Number.isNaN(categoryId)){
         categoryIdNumber = 0;

@@ -25,7 +25,7 @@ const BookProps: React.FC<BookPropsInterface> = (props) =>{
                 setError(error.message);
             }
         );
-    },[]) // chi goi 1 lan
+    },[bookId]) // chi goi 1 lan
     if(loadingData){
         return(
             <div>

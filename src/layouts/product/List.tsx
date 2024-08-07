@@ -17,7 +17,7 @@ function List({searchKey, categoryId}: ListProps) {
     const [totalElements,setTotalElements] = useState(0);
 
     useEffect(() =>{
-        if(searchKey ==='' && categoryId == 0){
+        if(searchKey ==='' && categoryId === 0){
             getAllBook(currentPage -1).then(
                 result => {
                     setListBook(result.result);
