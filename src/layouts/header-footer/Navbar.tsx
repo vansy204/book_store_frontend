@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { ChangeEvent, useState, KeyboardEvent } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
 
 interface NavbarProps {
     searchKey: string;
@@ -34,16 +35,16 @@ export function Navbar({ searchKey, setSearchKey }: NavbarProps) {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="#">Home Page</a>
+                            <NavLink className="nav-link active" aria-current="page" to="/">Home Page</NavLink>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Category
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown1">
-                                <li><Link className="dropdown-item" to="/1">Category 1</Link></li>
-                                <li><Link className="dropdown-item" to="/2">Category 2</Link></li>
-                                <li><Link className="dropdown-item" to="/3">Category 3</Link></li>
+                                <li><NavLink className="dropdown-item" to="/1">Category 1</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/2">Category 2</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/3">Category 3</NavLink></li>
                             </ul>
                         </li>
                         <li className="nav-item dropdown">

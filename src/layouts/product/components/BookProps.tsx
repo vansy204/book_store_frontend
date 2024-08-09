@@ -2,60 +2,67 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import { BookModel } from "../../../models/BookModel";
-import { getAllPicture, getFirtPictureOfBook } from "../../../api/PictureAPI";
+
 import { PictureModel } from "../../../models/PictureModel";
-interface BookPropsInterface{
+import { Link } from "react-router-dom";
+
+import { getFirtPictureOfBook } from "../../../api/PictureAPI";
+interface BookPropsInterface {
     Book: BookModel;
 }
 
-const BookProps: React.FC<BookPropsInterface> = (props) =>{
+const BookProps: React.FC<BookPropsInterface> = (props) => {
     const bookId: number = props.Book.bookId;
-    const [listPicture,setListPicture] = useState<PictureModel[]>([]);
-    const [loadingData,setLoadingData] = useState(true);
-    const [errorRes,setError] = useState(null);
+    const [listPicture, setListPicture] = useState<PictureModel[]>([]);
+    const [loadingData, setLoadingData] = useState(true);
+    const [errorRes, setError] = useState(null);
 
-    useEffect(() =>{
+    useEffect(() => {
         getFirtPictureOfBook(bookId).then(
             pictureData => {
                 setListPicture(pictureData);
                 setLoadingData(false);
             }
         ).catch(
-            error =>{
+            error => {
                 setError(error.message);
             }
         );
-    },[bookId]) // chi goi 1 lan
-    if(loadingData){
-        return(
+    }, [bookId]) // chi goi 1 lan
+    if (loadingData) {
+        return (
             <div>
                 <h1>Loadding Data</h1>
             </div>
         );
     }
-    if(errorRes){
-        return(
+    if (errorRes) {
+        return (
             <div>
                 <h1>Error: {errorRes}</h1>
             </div>
         );
     }
-    let pictureData: string ="";
-    if(listPicture[0] && listPicture[0].pictureData){
+    let pictureData: string = "";
+    if (listPicture[0] && listPicture[0].pictureData) {
         pictureData = listPicture[0].pictureData;
     }
-    return(
+    return (
         <div className="col-md-3 mt-2" >
             <div className="card">
-            <img 
-                src={pictureData}
-                className="card-img-top"
-                alt={props.Book.bookName}
-                style={{height:'200px'}}
-            />
+                <Link to={`/book/${props.Book.bookId}`} >
+                    <img
+                        src={pictureData}
+                        className="card-img-top"
+                        alt={props.Book.bookName}
+                        style={{ height: '200px' }}
+                    />
+                </Link>
                 <div className="card-body">
-                    <h5 className="card-title">{props.Book.bookName}</h5>
-                    <p className="card-text">{props.Book.desciption}</p>
+                    <Link to={`/book/${props.Book.bookId}`} style={{textDecoration: 'none'}}>
+                        <h5 className="card-title">{props.Book.bookName}</h5>
+                    </Link>
+                    <p className="card-text">{props.Book.description}</p>
                     <div className="price">
                         <span className="original-price">
                             <del>{props.Book.listedPrice}</del>

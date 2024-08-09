@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from "react";
 
 export class BookModel{
@@ -5,7 +6,7 @@ export class BookModel{
     bookName?: string;
     author?: string;
     ISBN?: string;
-    desciption?: string;
+    description?: string;
     listedPrice?: number;
     price?: number;
     quantity?: number;
@@ -16,7 +17,7 @@ export class BookModel{
         bookName?: string,
         author?: string,
         ISBN?: string,
-        desciption?: string,
+        description?: string,
         listedPrice?: number,
         price?: number,
         quantity?: number,
@@ -26,7 +27,7 @@ export class BookModel{
         this.bookName = bookName;
         this.author = author;
         this.ISBN = ISBN;
-        this.desciption = desciption;
+        this.description = description;
         this.listedPrice = listedPrice;
         this.price = price;
         this.quantity = quantity;
