@@ -7,6 +7,8 @@ import { PictureModel } from "../../../models/PictureModel";
 import { Link } from "react-router-dom";
 
 import { getFirtPictureOfBook } from "../../../api/PictureAPI";
+import renderRating from "../../utils/RatingStar";
+import formatNumber from "../../utils/FormatNumber";
 interface BookPropsInterface {
     Book: BookModel;
 }
@@ -62,21 +64,23 @@ const BookProps: React.FC<BookPropsInterface> = (props) => {
                     <Link to={`/book/${props.Book.bookId}`} style={{textDecoration: 'none'}}>
                         <h5 className="card-title">{props.Book.bookName}</h5>
                     </Link>
-                    <div className="price">
-                        <span className="original-price">
-                            <del>{props.Book.listedPrice}</del>
+                    <div className="price row">
+                        <span className="original-price col-6 text-end">
+                            <del>{formatNumber(props.Book.listedPrice)}đ</del>
                         </span>
-                        <span className="price">
-                            <strong>{props.Book.price}</strong>
+                        <span className="discounted-price col-6 text-end">
+                            <strong>{formatNumber(props.Book.price)}đ</strong>
                         </span>
                     </div>
                     <div className="row mt-2" role="group">
                         <div className="col-6">
-                            <a href="#" className="btn btn-secondary btn-block">
+                            {renderRating(props.Book.ratings ? props.Book.ratings : 0)}
+                        </div>
+                        
+                        <div className="col-6 text-end ">
+                            <a href="#" className="btn btn-secondary btn-block me-2">
                                 <i className="fas fa-heart"></i>
                             </a>
-                        </div>
-                        <div className="col-6">
                             <button className="btn btn-danger btn-block">
                                 <i className="fas fa-shopping-cart"></i>
                             </button>

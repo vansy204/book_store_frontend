@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { ChangeEvent, useState, KeyboardEvent } from "react";
+import { Search } from "react-bootstrap-icons";
 import { NavLink } from "react-router-dom";
 
 
@@ -75,7 +76,7 @@ export function Navbar({ searchKey, setSearchKey }: NavbarProps) {
                         onKeyDown={handleKeyDown}  // Lắng nghe sự kiện onKeyDown trên input
                     />
                     <button className="btn btn-outline-success" type="button" onClick={handleSearch}>
-                        Search
+                        <Search/>
                     </button>
                 </div>
 

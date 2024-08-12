@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { getAllRatings } from "../../../api/DanhGiaAPI";
 import DanhGiaModel from "../../../models/DanhGiaModel";
+import { Star, StarFill } from "react-bootstrap-icons";
+import renderRating from "../../utils/RatingStar";
 
 interface DanhGiaSanPhamInterface {
     bookId: number;
@@ -26,6 +28,7 @@ const DanhGiaSanPham: React.FC<DanhGiaSanPhamInterface> = (props) => {
             }
         );
     }, [bookId]) // chi goi 1 lan
+    
     if (loadingData) {
         return (
             <div>
@@ -47,7 +50,7 @@ const DanhGiaSanPham: React.FC<DanhGiaSanPhamInterface> = (props) => {
                 danhSachDanhGia.map((danhGia, index) => (
                     <div className="row ">
                         <div className="col-4 text-end">
-                            <p>{danhGia.ratePoint}</p>
+                            <p>{renderRating(danhGia.ratePoint ? danhGia.ratePoint : 0)}</p>
                         </div>
                         <div className="col-8 text-start">
                             <p>{danhGia.comment}</p>
