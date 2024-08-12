@@ -21,6 +21,7 @@ function App() {
          <Route path='/:categoryId' element={<HomePage searchKey={searchKey} />}/>
          <Route path='/about' element={<About/>}/>
          <Route path='/book/:bookId' element={<ProductDetail/>}/>
+         <Route path='/dangKy' element={<DangKyNguoiDung/>}/>
         </Routes>
         <Footer />
       </BrowserRouter>
