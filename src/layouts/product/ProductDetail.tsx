@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { BookModel } from '../../models/BookModel';
 import { getBookById } from '../../api/BookAPI';
 import { useParams } from 'react-router-dom';
+import ProductPicture from './components/ProductPicture';
+import DanhGiaSanPham from './components/DanhGiaSanPham';
 
 
 const ProductDetail: React.FC = () => {
@@ -57,7 +59,7 @@ const ProductDetail: React.FC = () => {
        <div className='container'>
          <div className="row mt-4 mb-4">
             <div className='col-4'>
-                {book.bookId}
+                <ProductPicture bookId ={bookNumber}/>
             </div>
             <div className='col-8'>
                 <div className='row'>
@@ -76,13 +78,13 @@ const ProductDetail: React.FC = () => {
                         <hr />
                     </div>
                     <div className='col-4'>
-                        phan dat hang
+                        
                     </div>
                 </div>
             </div>
         </div>
         <div className="row mt-4 mb-4">
-           phan review
+           <DanhGiaSanPham bookId={bookNumber}/>
         </div>
        </div>
     );

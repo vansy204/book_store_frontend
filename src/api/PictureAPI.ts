@@ -1,4 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from "react";
+
 import { PictureModel } from "../models/PictureModel";
 import { my_request } from "./Request";
 

@@ -62,7 +62,6 @@ const BookProps: React.FC<BookPropsInterface> = (props) => {
                     <Link to={`/book/${props.Book.bookId}`} style={{textDecoration: 'none'}}>
                         <h5 className="card-title">{props.Book.bookName}</h5>
                     </Link>
-                    <p className="card-text">{props.Book.description}</p>
                     <div className="price">
                         <span className="original-price">
                             <del>{props.Book.listedPrice}</del>
