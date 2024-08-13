@@ -8,6 +8,7 @@ import { HomePage } from './layouts/homepage/HomePage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { About } from './layouts/about/About';
 import ProductDetail from './layouts/product/ProductDetail';
+import DangKyNguoiDung from './layouts/user/DangKyNguoiDung';
 
 function App() {
   const [searchKey, setSearchKey] = useState("");
