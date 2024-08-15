@@ -93,7 +93,7 @@ export function Navbar({ searchKey, setSearchKey }: NavbarProps) {
                 <ul className="navbar-nav me-1">
                     <li className="nav-item">
                         <a className="nav-link" href="#">
-                            <i className="fas fa-user"></i>
+                            <NavLink to="/dangky" className="fas fa-user"></NavLink>
                         </a>
                     </li>
                 </ul>
