@@ -12,14 +12,56 @@ function DangKyNguoiDung() {
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
     const [passwordRepeat, setPasswordRepeat] = useState("");
-    const [gender, setGender] = useState('1');
+    const [gender, setGender] = useState('M');
     const [errorUserName, setErrorUserName] = useState("");
     const [errorEmail, setErrorEmail] = useState("");
     const [errorPassword, setErrorPassword] = useState("");
     const [errorpasswordRepeat, setErrorPasswordRepet] = useState("");
+    const [thongBao, setThongBao] = useState("");
     // xu ly thong tin
     const handleSubmit = async (e: React.FormEvent) => {
+        // clear tat ca loi
+        setErrorUserName("");
+        setErrorEmail("");
+        setErrorPassword("");
+        setErrorPasswordRepet("");
 
+        // tranh click lien tuc
+        e.preventDefault();
+
+        // kiem tra cac dieu kien va gan ket qua vao bien
+        const isUserNameValid = !await checkUserName(userName);
+        const isEmailValid = !await checkEmail(email);
+        const isPasswordValid = !await checkPassword(password);
+        const isPasswordRepeatValid = !await checkPasswordRepeat(passwordRepeat);
+
+        if (isUserNameValid && isEmailValid && isPasswordValid && isPasswordRepeatValid) {
+            try {
+                const url = `http://localhost:8080/api/account/dang-ky`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userName: userName,
+                        email: email,
+                        password: password,
+                        userFirstName: userFirstName,
+                        userLastName: userLastName,
+                        phone: phone,
+                        gender: gender
+                    })
+                });
+                if (response.ok) {
+                    setThongBao("Dang ky thanh cong, vui long kiem tra email de kich hoat!");
+                } else {
+                    setThongBao("da xay ra loi trong qua trinh dang ky tai khoan.")
+                }
+            } catch (error) {
+                setThongBao("da xay ra loi trong qua trinh dang ky tai khoan.")
+            }
+        }
     }
 
     //kiem tra ten dang  nhap
@@ -80,7 +122,7 @@ function DangKyNguoiDung() {
         } else {
             setErrorPassword(""); // mat khau hop le
             return false;
-            
+
         }
     }
     const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,16 +130,16 @@ function DangKyNguoiDung() {
         setPassword(e.target.value);
         //kiem tra
         console.log(checkPassword(e.target.value));
-        
+
         setErrorPassword("");
         return checkPassword(e.target.value);
     }
     // kiem tra mat khau lap lai
     const checkPasswordRepeat = (passwordRepeat: string) => {
-        if(passwordRepeat !== password){
+        if (passwordRepeat !== password) {
             setErrorPasswordRepet("mat khau khong trung khop")
             return true;
-        }else{
+        } else {
             setErrorPasswordRepet("");
             return false;
         }
@@ -106,11 +148,11 @@ function DangKyNguoiDung() {
         // thay doi gia tri
         setPasswordRepeat(e.target.value);
         //kiem tra
-        
+
         setErrorPasswordRepet("");
         return checkPasswordRepeat(e.target.value);
     }
-    
+
     return (
         <div className="container">
             <h1 className="mt-5 text-center">Dang ky</h1>
@@ -128,12 +170,12 @@ function DangKyNguoiDung() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">password</label>
-                        <input 
+                        <input
                             type="password"
-                            name="" 
-                            id="password" 
-                            className="form-control" 
-                            value={password} 
+                            name=""
+                            id="password"
+                            className="form-control"
+                            value={password}
                             onChange={handlePassword} />
                         <div style={{ color: "red" }}>{errorPassword}</div>
                     </div>
@@ -141,6 +183,29 @@ function DangKyNguoiDung() {
                         <label htmlFor="passwordRepeat" className="form-label">passwordRepeat</label>
                         <input type="password" name="" id="passwordRepeat" className="form-control" value={passwordRepeat} onChange={handlePasswordRepeat} />
                         <div style={{ color: "red" }}>{errorpasswordRepeat}</div>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="FirstName" className="form-label">First Name</label>
+                        <input type="text" name="" id="firstName" className="form-control" value={userFirstName} onChange={(e) => setUserFirstName(e.target.value)} />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="lastName" className="form-label">Last Name</label>
+                        <input type="text" name="" id="lastName" className="form-control" value={userLastName} onChange={(e) => setUserLastName(e.target.value)} />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="phone" className="form-label">Phone</label>
+                        <input type="text" name="" id="phone" className="form-control" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                    </div>
+                    {/* <div className="mb-3">
+                        <input name="gender" type="radio" value="Nam" onChange={(e) => setGender(e.target.value)} />Nam
+                        <br />
+                        <input name="gender" type="radio" value="Nữ" onChange={(e) => setGender(e.target.value)} />Nữ
+                        <br />
+                        <input name="gender" type="radio" value="Khác" onChange={(e) => setGender(e.target.value)} />Khác
+                    </div> */}
+                    <div className="text-center">
+                        <button type="submit" className="btn btn-primary">Đăng Ký</button>
+                        <div style={{ color: "green" }}>{thongBao}</div>
                     </div>
                 </form>
             </div>
