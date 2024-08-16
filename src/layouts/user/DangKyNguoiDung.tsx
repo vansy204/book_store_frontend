@@ -50,7 +50,9 @@ function DangKyNguoiDung() {
                         userFirstName: userFirstName,
                         userLastName: userLastName,
                         phone: phone,
-                        gender: gender
+                        gender: gender,
+                        activatec: 0,
+                        activateCode: ""
                     })
                 });
                 if (response.ok) {
