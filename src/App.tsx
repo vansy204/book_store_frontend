@@ -9,6 +9,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { About } from './layouts/about/About';
 import ProductDetail from './layouts/product/ProductDetail';
 import DangKyNguoiDung from './layouts/user/DangKyNguoiDung';
+import KichHoatTaiKhoan from './layouts/user/KichHoatTaiKhoan';
+
 
 function App() {
   const [searchKey, setSearchKey] = useState("");
@@ -23,6 +25,7 @@ function App() {
          <Route path='/about' element={<About/>}/>
          <Route path='/book/:bookId' element={<ProductDetail/>}/>
          <Route path='/dangKy' element={<DangKyNguoiDung/>}/>
+         <Route path='/kich-hoat/:email/:activateCode'  element={<KichHoatTaiKhoan/>}/>
         </Routes>
         <Footer />
       </BrowserRouter>
