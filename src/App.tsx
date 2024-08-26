@@ -10,6 +10,10 @@ import { About } from './layouts/about/About';
 import ProductDetail from './layouts/product/ProductDetail';
 import DangKyNguoiDung from './layouts/user/DangKyNguoiDung';
 import KichHoatTaiKhoan from './layouts/user/KichHoatTaiKhoan';
+import DangNhap from './layouts/user/DangNhap';
+import Test from './layouts/user/Test';
+import SachForm from './admin/SachForm';
+import SachForAdmin from './admin/SachForm';
 
 
 function App() {
@@ -26,6 +30,9 @@ function App() {
          <Route path='/book/:bookId' element={<ProductDetail/>}/>
          <Route path='/dangKy' element={<DangKyNguoiDung/>}/>
          <Route path='/kich-hoat/:email/:activateCode'  element={<KichHoatTaiKhoan/>}/>
+         <Route path='/dangNhap'  element={<DangNhap/>}/>
+         <Route path='/Test'  element={<Test/>}/>
+         <Route path='/admin/themSach'  element={<SachForAdmin/>}/>
         </Routes>
         <Footer />
       </BrowserRouter>

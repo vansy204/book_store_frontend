@@ -18,6 +18,18 @@ function DangKyNguoiDung() {
     const [errorPassword, setErrorPassword] = useState("");
     const [errorpasswordRepeat, setErrorPasswordRepet] = useState("");
     const [thongBao, setThongBao] = useState("");
+    const [avatar,setAvatar] = useState <File | null>(null);
+
+    // convert file to Base64
+    const getBase64 = (file: File): Promise<String | null> =>{
+        return new Promise((resolve,reject) =>{
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result ? (reader.result as string).split(',')[1] : null);
+            reader.onerror = (error) => reject(error);
+        });
+    };
+
     // xu ly thong tin
     const handleSubmit = async (e: React.FormEvent) => {
         // clear tat ca loi
@@ -36,6 +48,8 @@ function DangKyNguoiDung() {
         const isPasswordRepeatValid = !await checkPasswordRepeat(passwordRepeat);
 
         if (isUserNameValid && isEmailValid && isPasswordValid && isPasswordRepeatValid) {
+            const base64Avatar = avatar ? await getBase64(avatar) : null;
+            console.log("avatar: " + base64Avatar)
             try {
                 const url = `http://localhost:8080/api/account/dang-ky`;
                 const response = await fetch(url, {
@@ -52,7 +66,8 @@ function DangKyNguoiDung() {
                         phone: phone,
                         gender: gender,
                         activatec: 0,
-                        activateCode: ""
+                        activateCode: "",
+                        avatar: base64Avatar
                     })
                 });
                 if (response.ok) {
@@ -154,7 +169,13 @@ function DangKyNguoiDung() {
         setErrorPasswordRepet("");
         return checkPasswordRepeat(e.target.value);
     }
-
+    // xu ly thay doi file
+    const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
+        if(e.target.files){
+            const file = e.target.files[0];
+            setAvatar(file);
+        }
+    }
     return (
         <div className="container">
             <h1 className="mt-5 text-center">Dang ky</h1>
@@ -205,6 +226,10 @@ function DangKyNguoiDung() {
                         <br />
                         <input name="gender" type="radio" value="Khác" onChange={(e) => setGender(e.target.value)} />Khác
                     </div> */}
+                    <div className="mb-3">
+                        <label htmlFor="avatar" className="form-label">Avatar</label>
+                        <input type="file" name="" id="avatar" className="form-control" accept="images/*" onChange={handleAvatarChange} />
+                    </div>
                     <div className="text-center">
                         <button type="submit" className="btn btn-primary">Đăng Ký</button>
                         <div style={{ color: "green" }}>{thongBao}</div>
